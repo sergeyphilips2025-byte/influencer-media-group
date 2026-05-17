@@ -1,0 +1,257 @@
+/* ── Section header ── */
+
+.sales-engine__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-20);
+  max-width: 580px;
+  margin-inline: auto;
+}
+
+.sales-engine__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.sales-engine__title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+  font-weight: var(--font-weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sales-engine__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-light);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0;
+}
+
+/* ── Track ── */
+
+.sales-engine__track {
+  position: relative;
+}
+
+/* Animated connector line */
+.sales-engine__connector {
+  position: absolute;
+  top: 52px; /* vertically centred with the icon box */
+  left: calc(10% + var(--space-8));
+  right: calc(10% + var(--space-8));
+  height: 1px;
+  background: var(--gradient-gold);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.sales-engine__connector.is-visible {
+  transform: scaleX(1);
+}
+
+/* Steps row */
+.sales-engine__steps {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* ── Step card ── */
+
+.se-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-bg-elevated);
+  border: var(--border-thin);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: border-color var(--transition-base);
+}
+
+.se-step:hover {
+  border-color: rgba(201, 168, 76, 0.2);
+}
+
+/* Core (featured) step */
+.se-step--core {
+  background: linear-gradient(160deg, var(--color-bg-elevated) 0%, rgba(201, 168, 76, 0.06) 100%);
+  border-color: rgba(201, 168, 76, 0.35);
+  box-shadow: var(--shadow-gold);
+  animation: goldPulse 4s ease-in-out infinite;
+}
+
+.se-step--core:hover {
+  border-color: rgba(201, 168, 76, 0.6);
+}
+
+/* Glow overlay on core card */
+.se-step__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Top row: icon + step number ── */
+
+.se-step__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.se-step__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.04);
+  border: var(--border-thin);
+  color: var(--color-gold);
+  flex-shrink: 0;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.se-step:hover .se-step__icon {
+  background: var(--color-gold-muted);
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+.se-step__number {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+  color: rgba(201, 168, 76, 0.12);
+  letter-spacing: var(--tracking-tight);
+  transition: color var(--transition-base);
+  user-select: none;
+}
+
+.se-step:hover .se-step__number,
+.se-step--core .se-step__number {
+  color: rgba(201, 168, 76, 0.25);
+}
+
+/* ── Title ── */
+
+.se-step__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* ── Platforms ── */
+
+.se-step__platforms {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-gold);
+  opacity: 0.8;
+  margin: 0;
+  line-height: var(--leading-snug);
+}
+
+/* ── Systems list ── */
+
+.se-step__systems {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: var(--space-3);
+  border-top: var(--border-thin);
+}
+
+.se-step__system {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+}
+
+.se-step__system svg {
+  color: var(--color-gold);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .sales-engine__steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Hide connector when steps wrap */
+  .sales-engine__connector {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sales-engine__steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Vertical timeline left border */
+  .se-step {
+    border-radius: 0;
+    border: none;
+    border-left: 2px solid rgba(255, 255, 255, 0.06);
+    padding: var(--space-6) var(--space-6) var(--space-8);
+    background: transparent;
+  }
+
+  .se-step:first-child { border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+  .se-step:last-child  { border-radius: 0 0 var(--radius-xl) var(--radius-xl); }
+
+  .se-step--core {
+    border-left-color: rgba(201, 168, 76, 0.5);
+    background: linear-gradient(160deg, rgba(201, 168, 76, 0.04) 0%, transparent 100%);
+    animation: none;
+    box-shadow: none;
+  }
+
+  .se-step__number {
+    font-size: var(--text-2xl);
+  }
+}

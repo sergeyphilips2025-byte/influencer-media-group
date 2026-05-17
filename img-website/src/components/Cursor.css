@@ -1,0 +1,47 @@
+:root {
+  --grad: linear-gradient(135deg, var(--color-gold) 0%, rgba(200, 34, 106, 1) 100%);
+}
+
+/* ── Dot ── */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--grad);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.2s ease;
+}
+
+/* ── Ring ── */
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(200, 34, 106, 0.5);
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: border-color 0.15s ease, opacity 0.2s ease;
+}
+
+/* ── Mobile: keep native cursor ── */
+
+@media (max-width: 1023px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
