@@ -11,30 +11,25 @@ gsap.registerPlugin(ScrollTrigger)
 const PILLARS = [
   {
     tag: 'PRODUCT',
-    title: 'Turn Your Expertise\nInto Digital Products',
-    copy: [
-      'Your knowledge shouldn’t stop at 1:1 calls or brand deals.',
-      'We help you package what you know into scalable offers people can buy anytime.',
-    ],
-    includes: ['Online courses', 'Memberships', 'Paid communities', 'Templates & digital downloads', 'Coaching programs', 'Offer positioning & pricing'],
+    title: 'Turn your expertise into a digital product people can buy anytime.',
+    boldWord: 'digital product',
+    copy: [],
+    includes: ['Offer positioning & pricing', 'Online courses', 'Memberships', 'Paid communities', 'Templates & digital downloads', 'Coaching programs'],
     color: '#3b82f6',
   },
   {
     tag: 'PROMOTION',
-    title: 'Build Systems That\nGrow & Convert',
-    copy: [
-      'Attention alone doesn’t generate revenue.',
-      'We create AI-powered growth systems that turn followers, viewers, and traffic into qualified leads and paying customers.',
-    ],
+    title: 'The AI system that turns followers and traffic into paying customers.',
+    boldWord: 'AI system',
+    copy: [],
     includes: ['AI sales funnels', 'Lead magnets', 'Email sequences', 'Content systems', 'AI DM automation', 'Audience growth systems'],
     color: '#7c3aed',
   },
   {
     tag: 'PROFIT',
-    title: 'Scale Revenue\nWith AI Automation',
-    copy: [
-      'We automate the backend of your business so leads, sales, onboarding, and follow-ups happen automatically — helping you grow faster without burning out.',
-    ],
+    title: 'Automate the backend so your business grows without burning you out.',
+    boldWord: null,
+    copy: [],
     includes: ['CRM systems', 'Workflow automations', 'Sales pipelines', 'Client onboarding', 'Lead qualification', 'Analytics & optimisation'],
     color: '#db2777',
   },
@@ -135,40 +130,43 @@ const TESTIMONIALS = [
 
 const FAQS = [
   {
+    q: 'What exactly is an info business?',
+    a: "A business built on your knowledge and audience. Courses, memberships, templates, communities. Sold through automated systems that don't need you to show up every time.",
+  },
+  {
     q: 'What is the AI Profit Sprint?',
-    a: 'The AI Profit Sprint is our signature 90-day intensive program where we build your complete AI-powered monetization system — from digital products to automated funnels to DM sequences that sell. You bring the audience; we build the engine.',
+    a: 'Our 90-day flagship programme. Product, funnel, automation built from scratch. Done with you, not just for you.',
+  },
+  {
+    q: "Sprint vs Immersion — what's the difference?",
+    a: 'Sprint is remote, 90 days, with full support. Immersion is in-person. Same outcome, different speed and format.',
   },
   {
     q: 'Who is this for?',
-    a: 'Creators, coaches, and consultants with an existing audience — social following, email list, or community — who are ready to stop trading time for money and build scalable, recurring income from their knowledge.',
+    a: "Creators, coaches, consultants and brand owners who have an audience or expertise and want scalable income. You don't need a huge following. You need the right system.",
   },
   {
-    q: 'How quickly will I see results?',
-    a: 'Most clients close their first digital product sales within 30 days. Full funnel automation typically goes live in weeks 4–6. By day 90 you\'ll have a fully operational AI-powered business running 24/7.',
+    q: 'How fast will I see results?',
+    a: 'Most clients see first revenue within 30 days. Full automated results in the 60-90 day window.',
   },
   {
-    q: 'What AI tools do you use?',
-    a: 'We deploy a custom stack based on your specific needs — including ManyChat for DM automation, ConvertKit or Beehiiv for email, Kajabi or Whop for products, and proprietary AI agents for content strategy and lead generation.',
+    q: 'Do you take a cut of my revenue?',
+    a: 'No. You keep 100% of everything. We charge a programme fee.',
   },
   {
-    q: 'Do you take a percentage of my revenue?',
-    a: 'Never. You keep 100% of what you earn. We work on a program fee model. Your success drives our reputation — so we are completely aligned with making you as much money as possible.',
-  },
-  {
-    q: "What if I don't have a big following?",
-    a: "Audience size matters less than audience quality. We've helped consultants with 2,000 email subscribers build $100K+ businesses. Our audience-building funnels also compound your growth while the monetization system runs.",
+    q: 'What if I have a small following?',
+    a: "We've built profitable info businesses from 2,000 engaged followers. Engagement beats follower count every time.",
   },
 ]
 
 const COMPARISON = [
-  { feature: 'AI-Powered Funnels' },
-  { feature: 'Done-For-You Setup' },
-  { feature: 'Digital Product Creation' },
-  { feature: 'DM Automation' },
-  { feature: 'Dedicated Strategist' },
-  { feature: 'Keep 100% of Revenue' },
-  { feature: 'Audience Building System' },
-  { feature: 'Ongoing Optimization' },
+  { feature: 'AI-powered sales funnels' },
+  { feature: 'Done-for-you digital product creation' },
+  { feature: 'DM automation (24/7)' },
+  { feature: 'Dedicated growth strategist' },
+  { feature: 'You keep 100% of revenue' },
+  { feature: 'Full CRM & automation stack' },
+  { feature: 'Ongoing optimisation' },
 ]
 
 // ─── HOOK ─────────────────────────────────────────────────────────────────────
@@ -413,16 +411,16 @@ function Hero() {
         <h1 className="hero-title" ref={titleRef}>
           <span className="ht-white">We Build</span>
           <span className="ht-row">
-            <span className="ht-blue">AI</span>
-            <span className="ht-grad">Systems</span>
+            <span className="ht-grad">AI-Powered</span>
           </span>
+          <span className="ht-white">Info Businesses</span>
           <span className="ht-white">That Sell.</span>
         </h1>
 
         <p className="hero-sub" ref={subRef}>
-          Influencer Media Group helps creators, coaches and consultants turn
-          their audience and expertise into AI-powered businesses that
-          generate revenue, scale faster, and operate 24/7.
+          For creators, coaches and consultants who know their audience and
+          expertise is worth more than brand deals and 1:1 calls. We help
+          you build an info business powered by AI that sells while you sleep.
         </p>
 
         <div className="hero-btns" ref={btnsRef}>
@@ -453,23 +451,43 @@ function Hero() {
 // ─── FOR WHO ──────────────────────────────────────────────────────────────────
 
 const FOR_WHO = [
-  { emoji: '📱', title: 'Content Creators',       desc: "You've built the following. Now let's build the business that doesn't depend on the algorithm." },
-  { emoji: '🎓', title: 'Coaches & Consultants',  desc: "Turn what's in your head into scalable digital products and automated coaching funnels." },
-  { emoji: '🚀', title: 'Emerging Influencers',   desc: "Build your monetisation infrastructure now — so when you blow up, you're ready for it." },
-  { emoji: '👑', title: 'Brand Owners',           desc: "Layer AI automation and new revenue streams onto the audience you've already built." },
-  { emoji: '📚', title: 'Course Creators',        desc: "Package your knowledge into evergreen digital products that sell 24/7 — with or without you showing up." },
+  { emoji: '🎙', title: 'Content Creators',      desc: "Build income that doesn't stop the moment you do." },
+  { emoji: '🎓', title: 'Coaches & Consultants', desc: "Stop capping your earnings at your own hours." },
+  { emoji: '🚀', title: 'Rising Creators',        desc: "Get your monetisation in place before you blow up." },
+  { emoji: '👑', title: 'Brand Owners',           desc: "Activate the audience you've already earned." },
+  { emoji: '📚', title: 'Course Creators',        desc: "Turn that dusty course into a machine that sells itself." },
 ]
+
+const FW_WORDS = ['Creators', 'Coaches', 'Consultants']
 
 function ForWho() {
   const ref = useRef(null)
   const v = useInView(ref)
+  const [wordIdx, setWordIdx] = useState(0)
+  const [animClass, setAnimClass] = useState('fw-word--in')
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimClass('fw-word--out')
+      setTimeout(() => {
+        setWordIdx(i => (i + 1) % FW_WORDS.length)
+        setAnimClass('fw-word--in')
+      }, 320)
+    }, 2200)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section className="forwho sec-light" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">Who It's For</span>
+          <span className="pbm-eyebrow">The Fit</span>
           <h2 className="pbm-title">
-            Built for <span className="pbm-title-grad">creators</span><br />who think bigger
+            Built for{' '}
+            <span className={`fw-word pbm-title-grad ${animClass}`}>
+              {FW_WORDS[wordIdx]}
+            </span>
+            <br />who think bigger
           </h2>
         </div>
         <div className="fw-grid">
@@ -516,22 +534,25 @@ function Pillars() {
   }, [])
 
   return (
-    <section className="pbm-section" id="framework" ref={sectionRef}>
+    <section className="pbm-section sec-light" id="framework" ref={sectionRef}>
       <div className="wrap">
 
         {/* Header */}
         <div className="pbm-header" ref={headerRef}>
-          <span className="pbm-eyebrow">The New Business Model</span>
+          <span className="pbm-eyebrow">The Model</span>
           <h2 className="pbm-title">
-            Build An <span className="pbm-title-grad">AI-Powered</span><br />Info Business.
+            What's an <span className="pbm-title-grad">Info Business</span><br />
+            and Why Should You Care?
           </h2>
           <p className="pbm-sub">
-            Most creators, coaches &amp; consultants already have an audience or expertise —
-            what&apos;s missing is the infrastructure that turns attention into scalable revenue.
+            An info business turns your audience and knowledge into income that
+            doesn't need your time. Packaged once, sold automatically, running
+            in the background while you get on with your life.
           </p>
         </div>
 
         <div className="pbm-track">
+          <div className="pbm-phase-label">The 3-Phase System</div>
           <div className="pbm-grid">
             {PILLARS.map((p, i) => (
               /* Shine-border wrapper — 2px animated gradient border */
@@ -542,10 +563,15 @@ function Pillars() {
                   <span className="pbm-card-tag" style={{ color: p.color, background: `${p.color}14`, borderColor: `${p.color}44` }}>
                     {p.tag}
                   </span>
-                  <h3 className="pbm-card-title">{p.title}</h3>
-                  <div className="pbm-card-body">
-                    {p.copy.map((para, j) => <p key={j}>{para}</p>)}
-                  </div>
+                  <h3 className="pbm-card-title">
+                    {p.boldWord
+                      ? p.title.split(p.boldWord).flatMap((part, j, arr) =>
+                          j < arr.length - 1
+                            ? [part, <strong key={j} style={{ color: p.color }}>{p.boldWord}</strong>]
+                            : [part]
+                        )
+                      : p.title}
+                  </h3>
                   <div className="pbm-includes">
                     <p className="pbm-inc-label">Includes</p>
                     <ul className="pbm-inc-list">
@@ -595,7 +621,7 @@ function Marquee() {
   return (
     <section className="marquee-section">
       <div className="pbm-header marquee-header">
-        <span className="pbm-eyebrow">Every Niche</span>
+        <span className="pbm-eyebrow">The Niche</span>
         <h2 className="pbm-title">
           One <span className="pbm-title-grad">Growth System.</span>
         </h2>
@@ -619,40 +645,40 @@ function Marquee() {
 // ─── THE PROBLEM ──────────────────────────────────────────────────────────────
 
 const PAIN_POINTS = [
-  { icon: '📲', text: 'Posting content non-stop just to stay visible — with no system turning views into revenue.' },
-  { icon: '💸', text: 'Chasing brand deals that disappear the moment the algorithm changes.' },
-  { icon: '⏰', text: 'Trading hours for money — fully booked, but income stays capped at what you can deliver.' },
-  { icon: '🔄', text: 'Starting from zero every month with no recurring, passive, or scalable income.' },
+  { text: 'You post every day. The views come in. The bank account doesn\'t move.' },
+  { text: 'You\'re fully booked. And somehow still broke.' },
+  { text: 'Your income lives and dies by an algorithm you don\'t control.' },
+  { text: 'Brand deals dry up the second your numbers dip.' },
+  { text: 'You start from zero. Every. Single. Month.' },
 ]
 
 function Problem() {
   const ref = useRef(null)
   const v = useInView(ref)
   return (
-    <section className="problem sec-light" ref={ref}>
+    <section className="problem" ref={ref}>
       <div className="wrap">
 
         <div className="problem-inner">
 
           {/* Left col — title block */}
           <div className="problem-left">
-            <span className="problem-eyebrow">The Friction</span>
-            <h2 className="problem-heading">The<br />Problem.</h2>
+            <span className="pbm-eyebrow">The Trap</span>
+            <h2 className="problem-heading">The System Is Designed to Keep You Broke.</h2>
             <div className="problem-rule" aria-hidden="true" />
           </div>
 
           {/* Right col — copy + pain points */}
           <div className={`problem-right${v ? ' in' : ''}`}>
             <p className="problem-intro">
-              Most creators and coaches are stuck in one of two traps:{' '}
-              <span className="gtext">trading hours for income</span>
-              {' '}or shouting into the void — posting non-stop with nothing
-              to show for it.
+              The platforms need your content. The brands need your trust.
+              The algorithms keep you posting, not profiting.{' '}
+              <span className="gtext">You are the product.</span>
             </p>
-            <div className="problem-grid">
+            <div className="problem-list">
               {PAIN_POINTS.map((p, i) => (
-                <div key={i} className="problem-card" style={{ transitionDelay: `${i * 90}ms` }}>
-                  <span className="problem-card-icon">{p.icon}</span>
+                <div key={i} className="problem-item" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <span className="problem-item-diamond" aria-hidden="true">❖</span>
                   <p className="problem-card-text">{p.text}</p>
                 </div>
               ))}
@@ -665,7 +691,7 @@ function Problem() {
         <div className={`problem-banner${v ? ' in' : ''}`}>
           <span className="problem-banner-plain">You don't need more content.</span>
           <span className="problem-banner-divider" aria-hidden="true" />
-          <span className="problem-banner-grad gtext">You need a system.</span>
+          <span className="problem-banner-grad gtext">You need an info business with AI running it.</span>
         </div>
 
       </div>
@@ -675,25 +701,10 @@ function Problem() {
 
 // ─── THE OPPORTUNITY ──────────────────────────────────────────────────────────
 
-const OPP_STATS = [
-  {
-    value: '$26T',
-    label: 'Digital product market projected by 2034',
-    source: 'Statista, 2023',
-    highlight: false,
-  },
-  {
-    value: '$840B',
-    label: 'Online education market alone by 2030',
-    source: 'Facts & Factors, 2024',
-    highlight: false,
-  },
-  {
-    value: '90%',
-    label: 'of consumers will pay for digital content that solves a problem or saves time',
-    source: 'McKinsey, 2025',
-    highlight: true,
-  },
+const SHIFT_STATS = [
+  { value: '$26 Trillion', label: 'Projected digital product market by 2034', ref: 1 },
+  { value: '$840 Billion', label: 'Online education alone by 2030',            ref: 2 },
+  { value: '90% of consumers', label: 'will pay for digital content that solves a problem', ref: 3, bold: true },
 ]
 
 function Opportunity() {
@@ -702,36 +713,29 @@ function Opportunity() {
   return (
     <section className="opportunity" ref={ref}>
 
-      {/* Background glow */}
       <div className="opp-glow" aria-hidden="true" />
 
       <div className="wrap">
 
-        {/* Header */}
         <div className={`opp-header${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">The Opportunity</span>
+          <span className="pbm-eyebrow">The Shift</span>
           <h2 className="opp-title">
-            The Future Is Now:<br />
-            <span className="gtext">Digital Products + AI Systems.</span>
+            The Biggest Wealth Transfer<br />
+            <span className="gtext">Is Happening Now.</span>
           </h2>
           <p className="opp-copy">
-            The game has changed. This isn't just about making money — it's about dominating
-            the Info Business. Digital products, social media, and AI systems are your unfair
-            advantage. The market is exploding, and the early movers win big.
+            Most creators and coaches are still renting their income from platforms.
+            The ones building info businesses are buying it outright.
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="opp-stats">
-          {OPP_STATS.map((s, i) => (
-            <div
-              key={i}
-              className={`opp-stat${s.highlight ? ' opp-stat--hl' : ''}${v ? ' in' : ''}`}
-              style={{ transitionDelay: `${120 + i * 120}ms` }}
-            >
-              <div className="opp-stat-value">{s.value}</div>
-              <div className="opp-stat-label">{s.label}</div>
-              <div className="opp-stat-source">Source: {s.source}</div>
+        <div className={`shift-stats${v ? ' in' : ''}`}>
+          {SHIFT_STATS.map((s, i) => (
+            <div key={i} className="shift-stat" style={{ transitionDelay: `${120 + i * 110}ms` }}>
+              <span className={`shift-stat-value${s.bold ? ' gtext' : ''}`}>{s.value}</span>
+              <span className="shift-stat-sep"> — </span>
+              <span className="shift-stat-label">{s.label}</span>
+              <sup className="shift-stat-ref">{s.ref}</sup>
             </div>
           ))}
         </div>
@@ -777,29 +781,32 @@ function Services() {
 
 // ─── AI PROFIT SPRINT ─────────────────────────────────────────────────────────
 
+const BA_ROWS = [
+  { before: 'Trading hours for income',   after: 'Products selling while you sleep' },
+  { before: 'Starting from $0 every month', after: 'Recurring, compounding revenue' },
+  { before: 'Relying on the algorithm',   after: 'Owning your audience and funnel' },
+  { before: 'Burning out on content',     after: 'One content system, automated' },
+  { before: 'Chasing the next client',    after: 'A pipeline that fills itself' },
+]
+
 function Sprint() {
   const ref = useRef(null)
   const v = useInView(ref)
-
-  const steps = [
-    { title: 'Build Your Offer',           desc: 'Define your niche, position your offer, and create a business model designed to generate consistent revenue.' },
-    { title: 'Create Your Growth System',  desc: 'Build the funnels, content systems, and marketing engine that attract leads and turn attention into sales.' },
-    { title: 'Launch & Monetise',          desc: 'Launch your offer with automated sales systems designed to convert your audience into paying clients.' },
-    { title: 'Scale & Automate',           desc: 'Automate the backend of your business so leads, sales, onboarding and follow-ups happen around the clock.' },
-  ]
 
   return (
     <section className="sprint sec-light" id="program" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">Flagship Program</span>
+          <span className="pbm-eyebrow">The Program</span>
           <h2 className="pbm-title">
             The Secret:<br />
             <span className="pbm-title-grad">AI Profit Sprint.</span>
           </h2>
           <p className="pbm-sub">
             A step-by-step program designed to help creators, coaches and consultants build
-            scalable AI-powered businesses with the right strategy, systems, and automation.
+            scalable info businesses. We take your expertise and audience and do the work.
+            Product, funnel, AI automation and ongoing strategy. From scratch.
+            Done with you every step of the way.
           </p>
         </div>
 
@@ -850,12 +857,23 @@ function Sprint() {
             </div>
           </div>
 
-          {/* ── Right: 4 step cards ── */}
-          <div className="sprint-steps-list">
-            {steps.map((s, i) => (
-              <div key={i} className="sprint-step-card">
-                <div className="sprint-step-title">{s.title}</div>
-                <div className="sprint-step-desc">{s.desc}</div>
+          {/* ── Right: Before / After infographic ── */}
+          <div className={`sprint-ba${v ? ' in' : ''}`}>
+            <div className="sprint-ba-head">
+              <span className="sprint-ba-col-label sprint-ba-col-before">Before</span>
+              <span className="sprint-ba-col-label sprint-ba-col-after">After</span>
+            </div>
+            {BA_ROWS.map((row, i) => (
+              <div key={i} className="sprint-ba-row" style={{ transitionDelay: `${i * 80}ms` }}>
+                <div className="sprint-ba-before">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="sprint-ba-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  {row.before}
+                </div>
+                <div className="sprint-ba-arrow" aria-hidden="true">→</div>
+                <div className="sprint-ba-after">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="sprint-ba-check"><polyline points="20 6 9 17 4 12"/></svg>
+                  {row.after}
+                </div>
               </div>
             ))}
           </div>
@@ -874,25 +892,26 @@ function Calculator() {
   const [fans, setFans] = useState(5000)
   const [price, setPrice] = useState(47)
 
-  const monthly = Math.round(fans * 0.02 * price)
+  const monthly = Math.round(fans * 0.01 * price)
   const yearly = monthly * 12
-  const fmt = n => n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}K` : `$${n}`
+  const fmt = n => '$' + n.toLocaleString('en-US')
 
   return (
     <section className="calc-section sec-light" id="calculator" ref={ref}>
       <div className="wrap">
         <div className="calc-grid">
           <div className={`calc-left${v ? ' in' : ''}`}>
-            <span className="pbm-eyebrow">Revenue Calculator</span>
+            <span className="pbm-eyebrow">The Numbers</span>
             <h2 className="pbm-title">See Your<br />Earning Potential</h2>
             <p className="pbm-sub">This is what your audience is worth as <strong>digital products</strong> — not brand deals or 1:1 calls. Enter your numbers and see what a product-first business could generate.</p>
 
+            <p className="calc-why-label">Why an Info Business Wins</p>
             <div className="dp-benefits-list">
               {[
-                { label: 'Total Control', text: 'You own the product. You set the price. You keep 70–90% of the revenue.' },
-                { label: 'Predictability', text: 'Digital products create consistent, recurring revenue. Retainer clients are unpredictable.' },
-                { label: 'Scalability', text: 'Sell 10, 50, or 100 products a month. There is a hard cap on 1:1 clients — not on digital sales.' },
-                { label: 'Works 24/7', text: 'Your digital product sells while you sleep. Client work requires you to show up every time.' },
+                { label: 'Total control', text: 'You own it. You set the price. You keep 70-90% of revenue.' },
+                { label: 'Predictability', text: "Recurring income that doesn't vanish when a brand moves on." },
+                { label: 'Scalability', text: 'No cap. Sell 10 or 500 units. Same effort.' },
+                { label: '24/7', text: "Your info business sells while you sleep. Client work doesn't." },
               ].map((b, i) => (
                 <div key={i} className="dp-benefit-row">
                   <span className="dp-benefit-label">{b.label}</span>
@@ -931,7 +950,7 @@ function Calculator() {
               </div>
 
               <a href="#apply" className="btn-primary btn-block">Start Monetizing Today →</a>
-              <p className="calc-disclaimer">⚠️ Figures are projected estimates based on a 2% industry-average conversion rate applied to your audience size. They are not based on IMG client results and do not constitute a promise, guarantee, or representation of expected income. Actual results vary based on niche, offer quality, marketing, and audience engagement.</p>
+              <p className="calc-disclaimer">⚠️ Figures are projected estimates based on a 1% conversion rate applied to your audience size. They are not based on IMG client results and do not constitute a promise, guarantee, or representation of expected income. Actual results vary based on niche, offer quality, marketing, and audience engagement.</p>
             </div>
           </div>
         </div>
@@ -943,11 +962,11 @@ function Calculator() {
 // ─── DIGITAL PRODUCTS ─────────────────────────────────────────────────────────
 
 const DIGITAL_PRODUCTS = [
-  { emoji: '🎓', title: 'Online Courses',          desc: 'Package your knowledge into a structured program. Students pay once — you earn forever.', featured: true, badge: 'Most Popular', color: '#3b82f6' },
-  { emoji: '👥', title: 'Memberships',             desc: 'Recurring monthly revenue from tiered access. The most predictable income stream you can build.', color: '#7c3aed' },
-  { emoji: '💬', title: 'Paid Communities',        desc: 'Exclusive spaces where your most loyal fans pay for connection, content, and direct access.', color: '#db2777' },
-  { emoji: '📄', title: 'Templates & Downloads',   desc: 'High-value tools and resources your audience buys instantly — zero delivery cost, pure margin.', color: '#10b981' },
-  { emoji: '📞', title: '1:1 Consultations',       desc: 'Premium personal access. High-ticket sessions that leverage your expertise at maximum value.', color: '#f59e0b' },
+  { emoji: '🎓', title: 'Online Courses',          desc: 'Students pay once. You earn forever.', featured: true, badge: 'Most Popular', color: '#3b82f6' },
+  { emoji: '👥', title: 'Memberships',             desc: 'The most predictable recurring income stream you can build.', color: '#7c3aed' },
+  { emoji: '💬', title: 'Paid Communities',        desc: 'Your most loyal audience pays for connection and direct access.', color: '#db2777' },
+  { emoji: '📄', title: 'Templates & Downloads',   desc: 'Zero delivery cost. Pure margin.', color: '#10b981' },
+  { emoji: '📞', title: '1:1 Consultations',       desc: 'Premium high-ticket sessions at your full rate.', color: '#f59e0b' },
 ]
 
 function DigitalProducts() {
@@ -959,9 +978,9 @@ function DigitalProducts() {
       <div className="dp-glow" aria-hidden="true" />
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">Multiple Revenue Streams</span>
-          <h2 className="pbm-title">What You'll Sell</h2>
-          <p className="pbm-sub">One audience. Five ways to monetise it. Build the products once — let AI systems sell them around the clock.</p>
+          <span className="pbm-eyebrow">The Product</span>
+          <h2 className="pbm-title">One Audience. Five Income Streams.<br /><span className="pbm-title-grad">Zero Extra Hours.</span></h2>
+          <p className="pbm-sub">Build the digital products once. The AI system sells them every hour of every day.</p>
         </div>
 
         <div className="dp-grid">
@@ -1066,14 +1085,15 @@ function Comparison() {
     <section className="comparison" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">See How We Compare</span>
-          <h2 className="pbm-title">Why Top Creators<br />Choose <span className="pbm-title-grad">IMG</span></h2>
+          <span className="pbm-eyebrow">Why Us</span>
+          <h2 className="pbm-title">One Roof. Every System.<br /><span className="pbm-title-grad">Nothing Outsourced.</span></h2>
+          <p className="pbm-sub">Most agencies do ads. Or content. Or tech. IMG builds the entire info business — product, funnel, automation and strategy — under one roof.</p>
         </div>
         <div className={`ctable${v ? ' in' : ''}`} style={{ transitionDelay: '120ms' }}>
           <div className="cthead">
             <div className="ctfeat">Feature</div>
-            <div className="ctus">Influencer Media Group</div>
-            <div className="ctthem">Others</div>
+            <div className="ctus">IMG</div>
+            <div className="ctthem">Everyone Else</div>
           </div>
           {COMPARISON.map((row, i) => (
             <div key={i} className="ctrow">
@@ -1102,9 +1122,8 @@ function FAQ() {
     <section className="faq sec-light" id="faq" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">Got Questions?</span>
-          <h2 className="pbm-title">Frequently Asked<br />Questions</h2>
-          <p className="pbm-sub">Everything you need to know about working with Influencer Media Group.</p>
+          <span className="pbm-eyebrow">The FAQs</span>
+          <h2 className="pbm-title">Good Questions.<br /><span className="pbm-title-grad">Straight Answers.</span></h2>
         </div>
         <div className={`faq-list${v ? ' in' : ''}`} style={{ transitionDelay: '120ms' }}>
           {FAQS.map((item, i) => (
@@ -1230,6 +1249,11 @@ function Footer() {
             </div>
           </div>
         </div>
+        <div className="footer-refs">
+          <sup>1</sup> Statista, 2023 &nbsp;·&nbsp;
+          <sup>2</sup> Facts &amp; Factors, 2024 &nbsp;·&nbsp;
+          <sup>3</sup> McKinsey &amp; Company, 2025
+        </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Influencer Media Group™. All Rights Reserved.</span>
           <span className="footer-right">Your Audience. Your Business. Your Rules.</span>
@@ -1258,9 +1282,9 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <ForWho />
         <Pillars />
         <Marquee />
+        <ForWho />
         <Problem />
         <Opportunity />
         <Sprint />
