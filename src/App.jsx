@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
+import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
@@ -35,12 +40,29 @@ const PILLARS = [
   },
 ]
 
+const PX = (id) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop`
+
 const NICHES = [
-  'Business Coaching', 'Fitness & Health', 'Personal Finance',
-  'Life Coaching', 'AI & Tech', 'Wellness', 'Music', 'Fashion',
-  'Food & Nutrition', 'Real Estate', 'Mindset', 'Marketing',
-  'Photography', 'Travel', 'Relationship Coaching', 'Sports',
-  'Online Education', 'Spirituality', 'E-Commerce', 'Copywriting',
+  { name: 'Business Coaching',     photo: PX(5934185)  },
+  { name: 'Fitness & Health',      photo: PX(8692291)  },
+  { name: 'Personal Finance',      photo: PX(4968545)  },
+  { name: 'Life Coaching',         photo: PX(3958426)  },
+  { name: 'AI & Tech',             photo: PX(34804020) },
+  { name: 'Wellness',              photo: PX(6958258)  },
+  { name: 'Music',                 photo: PX(8044226)  },
+  { name: 'Fashion',               photo: PX(32504521) },
+  { name: 'Food & Nutrition',      photo: PX(7890204)  },
+  { name: 'Real Estate',           photo: PX(7578906)  },
+  { name: 'Mindset',               photo: PX(4498216)  },
+  { name: 'Marketing',             photo: PX(6772076)  },
+  { name: 'Photography',           photo: PX(30884389) },
+  { name: 'Travel',                photo: PX(37562350) },
+  { name: 'Relationship Coaching', photo: PX(7741572)  },
+  { name: 'Sports',                photo: PX(31124865) },
+  { name: 'Online Education',      photo: PX(8055832)  },
+  { name: 'Spirituality',          photo: PX(7596959)  },
+  { name: 'E-Commerce',            photo: PX(6207729)  },
+  { name: 'Copywriting',           photo: PX(28952356) },
 ]
 
 const SERVICES = [
@@ -298,36 +320,97 @@ const TICKER_ITEMS =
   'INFLUENCER GROWTH · AI AGENTS · '
 
 function Hero() {
+  const sectionRef = useRef(null)
+  const badgeRef   = useRef(null)
+  const titleRef   = useRef(null)
+  const subRef     = useRef(null)
+  const btnsRef    = useRef(null)
+  const cardsRef   = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // ── Entrance animations ──
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      tl.from(badgeRef.current,  { y: 24, opacity: 0, duration: 0.7 }, 0.15)
+        .from(titleRef.current.children, { y: 64, opacity: 0, duration: 0.9, stagger: 0.12 }, 0.35)
+        .from(subRef.current,   { y: 24, opacity: 0, duration: 0.7 }, 0.85)
+        .from(btnsRef.current,  { y: 20, opacity: 0, duration: 0.6 }, 1.05)
+        .from(cardsRef.current.children, { scale: 0.88, opacity: 0, duration: 0.8, stagger: 0.1 }, 0.5)
+
+      // ── ScrollTrigger: parallax on glows as user scrolls out of hero ──
+      gsap.to('.hero-glow', {
+        y: 120,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      })
+
+      // ── ScrollTrigger: floating cards drift upward slightly on scroll ──
+      gsap.to(cardsRef.current.children, {
+        y: -60,
+        ease: 'none',
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 2,
+        },
+      })
+
+      // ── ScrollTrigger: hero center content fades out as section exits ──
+      gsap.to('.hero-center', {
+        y: -40,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: '60% top',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" ref={sectionRef}>
       {/* background glow */}
       <div className="hero-glow hero-glow--l" aria-hidden="true" />
       <div className="hero-glow hero-glow--r" aria-hidden="true" />
 
       {/* floating creator cards */}
-      {FLOATING_CARDS.map((card, i) => (
-        <div key={i} className={card.cls} aria-hidden="true">
-          <img src={card.src} alt="" width={card.width} height={card.height} className="fcard-img" />
-          <div className="fresult">
-            <div className="fresult-label">{card.result.label}</div>
-            <div className="fresult-amount" style={{ color: card.result.color }}>
-              {card.result.amount}
-            </div>
-            <div className="fresult-sub">
-              <span className="fresult-dot" style={{ background: card.result.color }} />
-              {card.result.sub}
+      <div ref={cardsRef} style={{ display: 'contents' }}>
+        {FLOATING_CARDS.map((card, i) => (
+          <div key={i} className={card.cls} aria-hidden="true">
+            <img src={card.src} alt="" width={card.width} height={card.height} className="fcard-img" />
+            <div className="fresult">
+              <div className="fresult-label">{card.result.label}</div>
+              <div className="fresult-amount" style={{ color: card.result.color }}>
+                {card.result.amount}
+              </div>
+              <div className="fresult-sub">
+                <span className="fresult-dot" style={{ background: card.result.color }} />
+                {card.result.sub}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {/* center content */}
       <div className="hero-center">
-        <div className="hero-badge">
+        <div className="hero-badge" ref={badgeRef}>
           AI Marketing Agency &amp; Consulting
         </div>
 
-        <h1 className="hero-title">
+        <h1 className="hero-title" ref={titleRef}>
           <span className="ht-white">We Build</span>
           <span className="ht-row">
             <span className="ht-blue">AI</span>
@@ -336,13 +419,13 @@ function Hero() {
           <span className="ht-white">That Sell.</span>
         </h1>
 
-        <p className="hero-sub">
+        <p className="hero-sub" ref={subRef}>
           Influencer Media Group helps creators, coaches and consultants turn
           their audience and expertise into AI-powered businesses that
           generate revenue, scale faster, and operate 24/7.
         </p>
 
-        <div className="hero-btns">
+        <div className="hero-btns" ref={btnsRef}>
           <a href="#apply" className="hero-btn-primary">
             <span className="hbtn-line1">Build with Us →</span>
           </a>
@@ -370,62 +453,77 @@ function Hero() {
 // ─── PILLARS ──────────────────────────────────────────────────────────────────
 
 function Pillars() {
-  const ref = useRef(null)
-  const v = useInView(ref)
+  const sectionRef = useRef(null)
+  const headerRef  = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      // Header reveal
+      gsap.from(headerRef.current.children, {
+        y: 40, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 68%' },
+      })
+
+      // Card wrappers rise up together
+      gsap.from('.pbm-card-wrap', {
+        y: 40, opacity: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 62%' },
+      })
+
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="pillars pillars-dark" ref={ref}>
+    <section className="pbm-section sec-light" id="framework" ref={sectionRef}>
       <div className="wrap">
-        <div className={`pillars-hd${v ? ' in' : ''}`}>
-          <div className="framework-label">
-            <span className="framework-label-line" aria-hidden="true" />
-            <span className="framework-label-text">The Framework</span>
-          </div>
-          <h2 className="pillars-title">
-            <span className="pillars-title-white">Build An AI-Powered</span>
-            <br />
-            <span className="pillars-title-grad">Info Business.</span>
+
+        {/* Header */}
+        <div className="pbm-header" ref={headerRef}>
+          <span className="pbm-eyebrow">The New Business Model</span>
+          <h2 className="pbm-title">
+            Build An <span className="pbm-title-grad">AI-Powered</span><br />Info Business.
           </h2>
-          <p className="pillars-sub">
+          <p className="pbm-sub">
             Most creators, coaches &amp; consultants already have an audience or expertise —
             what&apos;s missing is the infrastructure that turns attention into scalable revenue.
-            We build the products, funnels, automations, and AI systems behind modern Info Businesses.
           </p>
         </div>
 
-        <div className="pillars-grid">
+        <div className="pbm-track">
+          <div className="pbm-grid">
             {PILLARS.map((p, i) => (
-              <div
-                key={i}
-                className={`pcard${v ? ' in' : ''}`}
-                style={{ transitionDelay: `${i * 130}ms` }}
-              >
-                <div className="pcard-header">
-                  <span className="pcard-tag" style={{ color: p.color, borderColor: `${p.color}55`, background: `${p.color}12` }}>{p.tag}</span>
-                </div>
-
-                <div className="pcard-line" style={{ background: `linear-gradient(to right, ${p.color}, transparent)` }} />
-
-                <h3 className="pcard-title">{p.title}</h3>
-
-                <div className="pcard-copy">
-                  {p.copy.map((para, j) => <p key={j}>{para}</p>)}
-                </div>
-
-                <div className="pcard-includes">
-                  <div className="pcard-inc-label">Includes</div>
-                  <ul className="pcard-list">
-                    {p.includes.map((item, j) => (
-                      <li key={j} className="pcard-item">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="2.5" style={{ flexShrink: 0 }}>
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+              /* Shine-border wrapper — 2px animated gradient border */
+              <div key={i} className="pbm-card-wrap" style={{ '--shine-color': p.color, '--shine-delay': `${i * 1.1}s` }}>
+                <div className="pbm-card" style={{ '--card-color': p.color, '--delay': i * 0.9 }}>
+                  <div className="pbm-card-scan" aria-hidden="true" />
+                  <span className="pbm-card-num">0{i + 1}</span>
+                  <span className="pbm-card-tag" style={{ color: p.color, background: `${p.color}14`, borderColor: `${p.color}44` }}>
+                    {p.tag}
+                  </span>
+                  <h3 className="pbm-card-title">{p.title}</h3>
+                  <div className="pbm-card-body">
+                    {p.copy.map((para, j) => <p key={j}>{para}</p>)}
+                  </div>
+                  <div className="pbm-includes">
+                    <p className="pbm-inc-label">Includes</p>
+                    <ul className="pbm-inc-list">
+                      {p.includes.map((item, j) => (
+                        <li key={j} className="pbm-inc-item">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="2.5" style={{ flexShrink: 0 }}>
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+
         </div>
       </div>
     </section>
@@ -434,45 +532,42 @@ function Pillars() {
 
 // ─── STATS ────────────────────────────────────────────────────────────────────
 
-function Stats() {
-  const ref = useRef(null)
-  const v = useInView(ref)
-  const items = [
-    { value: '500+', label: 'Creators Helped' },
-    { value: '$10M+', label: 'Revenue Generated' },
-    { value: '3×', label: 'Average 90-Day ROI' },
-    { value: '9 Figures', label: 'Total Creator Earnings' },
-  ]
+// ─── MARQUEE ──────────────────────────────────────────────────────────────────
+
+function NicheCard({ n }) {
   return (
-    <div className="stats-bar" ref={ref}>
-      {items.map((s, i) => (
-        <div key={i} className={`stat${v ? ' stat--in' : ''}`} style={{ transitionDelay: `${i * 90}ms` }}>
-          <div className="stat-val">{s.value}</div>
-          <div className="stat-lbl">{s.label}</div>
-        </div>
-      ))}
+    <div className="niche-card">
+      <img
+        className="niche-card__photo"
+        src={n.photo}
+        alt={n.name}
+        loading="lazy"
+        decoding="async"
+      />
+      <span className="niche-card__name">{n.name}</span>
     </div>
   )
 }
 
-// ─── MARQUEE ──────────────────────────────────────────────────────────────────
-
 function Marquee() {
+  const row1 = NICHES.slice(0, 10)
+  const row2 = NICHES.slice(10)
   return (
     <section className="marquee-section">
-      <p className="marquee-label">Every niche. One growth system.</p>
+      <div className="pbm-header marquee-header">
+        <span className="pbm-eyebrow">Every Niche</span>
+        <h2 className="pbm-title">
+          One <span className="pbm-title-grad">Growth System.</span>
+        </h2>
+      </div>
       <div className="marquee-wrap">
-        <div className="marquee-row marquee-fwd" aria-hidden="true">
-          {[...NICHES, ...NICHES].map((n, i) => (
-            <span key={i} className="mchip">{n}</span>
-          ))}
+        <div className="marquee-row marquee-fwd">
+          {[...row1, ...row1].map((n, i) => <NicheCard key={i} n={n} />)}
         </div>
       </div>
       <div className="marquee-wrap">
-        <div className="marquee-row marquee-rev" aria-hidden="true">
-          {[...NICHES, ...NICHES].reverse().map((n, i) => (
-            <span key={i} className="mchip">{n}</span>
-          ))}
+        <div className="marquee-row marquee-rev">
+          {[...row2, ...row2].map((n, i) => <NicheCard key={i} n={n} />)}
         </div>
       </div>
     </section>
@@ -519,59 +614,86 @@ function Services() {
 function Sprint() {
   const ref = useRef(null)
   const v = useInView(ref)
+
   const steps = [
-    { n: '01', title: 'Strategy Call', desc: 'We map your audience, niche, and fastest path to $10K+/month.' },
-    { n: '02', title: 'Build Your System', desc: 'Digital products, funnels, and AI automations — built in weeks, not months.' },
-    { n: '03', title: 'Launch & Scale', desc: 'Go live with a complete monetization stack. Optimize with data weekly.' },
-    { n: '04', title: 'Profit on Autopilot', desc: 'Your AI-powered business earns 24/7 while you focus on creating.' },
+    { title: 'Build Your Offer',           desc: 'Define your niche, position your offer, and create a business model designed to generate consistent revenue.' },
+    { title: 'Create Your Growth System',  desc: 'Build the funnels, content systems, and marketing engine that attract leads and turn attention into sales.' },
+    { title: 'Launch & Monetise',          desc: 'Launch your offer with automated sales systems designed to convert your audience into paying clients.' },
+    { title: 'Scale & Automate',           desc: 'Automate the backend of your business so leads, sales, onboarding and follow-ups happen around the clock.' },
   ]
-  const includes = [
-    'Done-for-you funnel setup',
-    'Digital product creation',
-    'AI DM automation',
-    'Email sequence build-out',
-    'Weekly strategy calls',
-    'Dedicated growth strategist',
-  ]
+
   return (
-    <section className="sprint" id="program" ref={ref}>
-      <div className="sprint-glow" aria-hidden="true" />
+    <section className="sprint sec-light" id="program" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">The Secret</div>
-          <h2 className="sec-title gtext">The AI Profit Sprint</h2>
-          <p className="sec-sub">Our signature 90-day intensive that transforms your audience into a predictable, AI-powered revenue machine.</p>
+          <div className="sec-tag">Flagship Program</div>
+          <h2 className="sec-title">
+            The Secret:<br />
+            <span className="gtext">AI Profit Sprint.</span>
+          </h2>
+          <p className="sec-sub">
+            A step-by-step program designed to help creators, coaches and consultants build
+            scalable AI-powered businesses with the right strategy, systems, and automation.
+          </p>
         </div>
 
-        <div className={`sprint-steps${v ? ' in' : ''}`}>
-          {steps.map((s, i) => (
-            <div key={i} className="step" style={{ transitionDelay: `${i * 90}ms` }}>
-              <div className="step-n">{s.n}</div>
-              <div>
-                <div className="step-title">{s.title}</div>
-                <div className="step-desc">{s.desc}</div>
+        <div className="sprint-body">
+
+          {/* ── Left: Mock dashboard UI ── */}
+          <div className="sprint-ui">
+            <div className="sui-stack">
+
+              {/* Pill — top right */}
+              <div className="sui-pill">
+                <span className="sui-pill-dots"><i/><i/></span>
+                🤖 AI Running
               </div>
-            </div>
-          ))}
-        </div>
 
-        <div className={`sprint-box${v ? ' in' : ''}`} style={{ transitionDelay: '380ms' }}>
-          <div className="sprint-box-inner">
-            <div className="sprint-inc">
-              {includes.map((item, i) => (
-                <div key={i} className="inc-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  {item}
+              {/* Card 1 — AI Content Engine, behind */}
+              <div className="sui-card sui-card--1">
+                <div className="sui-card-label">
+                  <span className="sui-dot sui-dot--blue" />AI Content Engine
                 </div>
-              ))}
-            </div>
-            <div className="sprint-apply">
-              <div className="sprint-apply-label">Ready to Sprint?</div>
-              <p className="sprint-apply-note">Limited spots each cohort.</p>
-              <a href="#apply" className="btn-primary btn-lg">Apply for AI Profit Sprint →</a>
-              <p className="sprint-fine">No contracts. Keep 100% of your revenue.</p>
+                <div className="sui-tags">
+                  <span className="sui-tag sui-tag--blue">Posts Scheduled</span>
+                  <span className="sui-tag sui-tag--pink">Auto DMs</span>
+                </div>
+              </div>
+
+              {/* Card 2 — Revenue Dashboard */}
+              <div className="sui-card sui-card--2">
+                <div className="sui-card-label">
+                  <span className="sui-dot sui-dot--red" />Revenue Dashboard
+                </div>
+                <div className="sui-big-number">$8,420</div>
+              </div>
+
+              {/* Card 3 — Digital Product Sales, front */}
+              <div className="sui-card sui-card--3">
+                <div className="sui-card-label">
+                  <span className="sui-dot sui-dot--purple" />Digital Product Sales
+                </div>
+                <div className="sui-big-number">247</div>
+                <div className="sui-card-sub">Units sold · Running 24/7 automatically</div>
+                <div className="sui-bar">
+                  <div className="sui-bar-fill" style={{ width: '76%' }} />
+                </div>
+                <div className="sui-card-sub">76% of monthly goal reached</div>
+              </div>
+
             </div>
           </div>
+
+          {/* ── Right: 4 step cards ── */}
+          <div className="sprint-steps-list">
+            {steps.map((s, i) => (
+              <div key={i} className="sprint-step-card">
+                <div className="sprint-step-title">{s.title}</div>
+                <div className="sprint-step-desc">{s.desc}</div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
@@ -880,13 +1002,23 @@ function Footer() {
 // ─── APP ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true })
+    lenis.on('scroll', ScrollTrigger.update)
+    gsap.ticker.add((time) => lenis.raf(time * 1000))
+    gsap.ticker.lagSmoothing(0)
+    return () => {
+      lenis.destroy()
+      gsap.ticker.remove((time) => lenis.raf(time * 1000))
+    }
+  }, [])
+
   return (
     <>
       <Navbar />
       <main>
         <Hero />
         <Pillars />
-        <Stats />
         <Marquee />
         <Services />
         <Sprint />

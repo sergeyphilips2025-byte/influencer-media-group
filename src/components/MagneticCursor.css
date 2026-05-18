@@ -1,0 +1,48 @@
+/* ── Hide the native cursor on desktop pointer devices ── */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* ── Dot ── */
+.mcursor__dot {
+  position: fixed;
+  top:  0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: transform;
+
+  width:  8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top:  -4px;
+  border-radius: 50%;
+  background: #ffffff;
+  mix-blend-mode: difference;
+}
+
+/* ── Ring ── */
+.mcursor__ring {
+  position: fixed;
+  top:  0;
+  left: 0;
+  z-index: 9998;
+  pointer-events: none;
+  will-change: transform;
+
+  width:       38px;
+  height:      38px;
+  margin-left: -19px;
+  margin-top:  -19px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
+  mix-blend-mode: difference;
+  transform-origin: center center;
+}
+
+/* ── Reduced-motion: disable entirely ── */
+@media (prefers-reduced-motion: reduce) {
+  .mcursor__dot,
+  .mcursor__ring { display: none; }
+}
