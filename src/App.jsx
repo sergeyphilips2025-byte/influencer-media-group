@@ -450,6 +450,46 @@ function Hero() {
   )
 }
 
+// ─── FOR WHO ──────────────────────────────────────────────────────────────────
+
+const FOR_WHO = [
+  { emoji: '📱', title: 'Content Creators',       desc: "You've built the following. Now let's build the business that doesn't depend on the algorithm." },
+  { emoji: '🎓', title: 'Coaches & Consultants',  desc: "Turn what's in your head into scalable digital products and automated coaching funnels." },
+  { emoji: '🚀', title: 'Emerging Influencers',   desc: "Build your monetisation infrastructure now — so when you blow up, you're ready for it." },
+  { emoji: '👑', title: 'Brand Owners',           desc: "Layer AI automation and new revenue streams onto the audience you've already built." },
+  { emoji: '📚', title: 'Course Creators',        desc: "Package your knowledge into evergreen digital products that sell 24/7 — with or without you showing up." },
+]
+
+function ForWho() {
+  const ref = useRef(null)
+  const v = useInView(ref)
+  return (
+    <section className="forwho sec-light" ref={ref}>
+      <div className="wrap">
+        <div className={`sec-hd${v ? ' in' : ''}`}>
+          <div className="sec-tag">Who It's For</div>
+          <h2 className="sec-title">
+            Built for <span className="gtext">creators</span><br />who think bigger
+          </h2>
+        </div>
+        <div className="fw-grid">
+          {FOR_WHO.map((fw, i) => (
+            <div
+              key={i}
+              className={`fw-card${v ? ' in' : ''}`}
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <div className="fw-emoji">{fw.emoji}</div>
+              <h3 className="fw-title">{fw.title}</h3>
+              <p className="fw-desc">{fw.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── PILLARS ──────────────────────────────────────────────────────────────────
 
 function Pillars() {
@@ -569,6 +609,65 @@ function Marquee() {
         <div className="marquee-row marquee-rev">
           {[...row2, ...row2].map((n, i) => <NicheCard key={i} n={n} />)}
         </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── SERVICES ─────────────────────────────────────────────────────────────────
+
+// ─── THE PROBLEM ──────────────────────────────────────────────────────────────
+
+const PAIN_POINTS = [
+  { icon: '📲', text: 'Posting content non-stop just to stay visible — with no system turning views into revenue.' },
+  { icon: '💸', text: 'Chasing brand deals that disappear the moment the algorithm changes.' },
+  { icon: '⏰', text: 'Trading hours for money — fully booked, but income stays capped at what you can deliver.' },
+  { icon: '🔄', text: 'Starting from zero every month with no recurring, passive, or scalable income.' },
+]
+
+function Problem() {
+  const ref = useRef(null)
+  const v = useInView(ref)
+  return (
+    <section className="problem" ref={ref}>
+      <div className="wrap">
+
+        <div className="problem-inner">
+
+          {/* Left col — title block */}
+          <div className="problem-left">
+            <span className="problem-eyebrow">The Friction</span>
+            <h2 className="problem-heading">The<br />Problem.</h2>
+            <div className="problem-rule" aria-hidden="true" />
+          </div>
+
+          {/* Right col — copy + pain points */}
+          <div className={`problem-right${v ? ' in' : ''}`}>
+            <p className="problem-intro">
+              Most creators and coaches are stuck in one of two traps:{' '}
+              <span className="gtext">trading hours for income</span>
+              {' '}or shouting into the void — posting non-stop with nothing
+              to show for it.
+            </p>
+            <div className="problem-grid">
+              {PAIN_POINTS.map((p, i) => (
+                <div key={i} className="problem-card" style={{ transitionDelay: `${i * 90}ms` }}>
+                  <span className="problem-card-icon">{p.icon}</span>
+                  <p className="problem-card-text">{p.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom statement bar */}
+        <div className={`problem-banner${v ? ' in' : ''}`}>
+          <span className="problem-banner-plain">You don't need more content.</span>
+          <span className="problem-banner-divider" aria-hidden="true" />
+          <span className="problem-banner-grad gtext">You need a system.</span>
+        </div>
+
       </div>
     </section>
   )
@@ -1018,8 +1117,10 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <ForWho />
         <Pillars />
         <Marquee />
+        <Problem />
         <Services />
         <Sprint />
         <Calculator />
