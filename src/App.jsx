@@ -467,9 +467,9 @@ function ForWho() {
     <section className="forwho sec-light" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">Who It's For</div>
-          <h2 className="sec-title">
-            Built for <span className="gtext">creators</span><br />who think bigger
+          <span className="pbm-eyebrow">Who It's For</span>
+          <h2 className="pbm-title">
+            Built for <span className="pbm-title-grad">creators</span><br />who think bigger
           </h2>
         </div>
         <div className="fw-grid">
@@ -516,7 +516,7 @@ function Pillars() {
   }, [])
 
   return (
-    <section className="pbm-section sec-light" id="framework" ref={sectionRef}>
+    <section className="pbm-section" id="framework" ref={sectionRef}>
       <div className="wrap">
 
         {/* Header */}
@@ -629,7 +629,7 @@ function Problem() {
   const ref = useRef(null)
   const v = useInView(ref)
   return (
-    <section className="problem" ref={ref}>
+    <section className="problem sec-light" ref={ref}>
       <div className="wrap">
 
         <div className="problem-inner">
@@ -673,18 +673,86 @@ function Problem() {
   )
 }
 
+// ─── THE OPPORTUNITY ──────────────────────────────────────────────────────────
+
+const OPP_STATS = [
+  {
+    value: '$26T',
+    label: 'Digital product market projected by 2034',
+    source: 'Statista, 2023',
+    highlight: false,
+  },
+  {
+    value: '$840B',
+    label: 'Online education market alone by 2030',
+    source: 'Facts & Factors, 2024',
+    highlight: false,
+  },
+  {
+    value: '90%',
+    label: 'of consumers will pay for digital content that solves a problem or saves time',
+    source: 'McKinsey, 2025',
+    highlight: true,
+  },
+]
+
+function Opportunity() {
+  const ref = useRef(null)
+  const v = useInView(ref)
+  return (
+    <section className="opportunity" ref={ref}>
+
+      {/* Background glow */}
+      <div className="opp-glow" aria-hidden="true" />
+
+      <div className="wrap">
+
+        {/* Header */}
+        <div className={`opp-header${v ? ' in' : ''}`}>
+          <span className="pbm-eyebrow">The Opportunity</span>
+          <h2 className="opp-title">
+            The Future Is Now:<br />
+            <span className="gtext">Digital Products + AI Systems.</span>
+          </h2>
+          <p className="opp-copy">
+            The game has changed. This isn't just about making money — it's about dominating
+            the Info Business. Digital products, social media, and AI systems are your unfair
+            advantage. The market is exploding, and the early movers win big.
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div className="opp-stats">
+          {OPP_STATS.map((s, i) => (
+            <div
+              key={i}
+              className={`opp-stat${s.highlight ? ' opp-stat--hl' : ''}${v ? ' in' : ''}`}
+              style={{ transitionDelay: `${120 + i * 120}ms` }}
+            >
+              <div className="opp-stat-value">{s.value}</div>
+              <div className="opp-stat-label">{s.label}</div>
+              <div className="opp-stat-source">Source: {s.source}</div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
 // ─── SERVICES ─────────────────────────────────────────────────────────────────
 
 function Services() {
   const ref = useRef(null)
   const v = useInView(ref)
   return (
-    <section className="services sec-light" id="services" ref={ref}>
+    <section className="services" id="services" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">What We Do</div>
-          <h2 className="sec-title">Our Full<br />Service Suite</h2>
-          <p className="sec-sub">Every tool, system, and strategy you need — built and run for you, so you can focus on what you do best.</p>
+          <span className="pbm-eyebrow">What We Do</span>
+          <h2 className="pbm-title">Our Full<br /><span className="pbm-title-grad">Service Suite</span></h2>
+          <p className="pbm-sub">Every tool, system, and strategy you need — built and run for you, so you can focus on what you do best.</p>
         </div>
         <div className="services-grid">
           {SERVICES.map((s, i) => (
@@ -694,7 +762,6 @@ function Services() {
               style={{ transitionDelay: `${i * 70}ms` }}
             >
               {s.tag && <div className="scard-tag">{s.tag}</div>}
-              <div className="scard-icon">{s.icon}</div>
               <h3 className="scard-title">{s.title}</h3>
               <p className="scard-desc">{s.desc}</p>
               <div className="scard-arrow">
@@ -725,12 +792,12 @@ function Sprint() {
     <section className="sprint sec-light" id="program" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">Flagship Program</div>
-          <h2 className="sec-title">
+          <span className="pbm-eyebrow">Flagship Program</span>
+          <h2 className="pbm-title">
             The Secret:<br />
-            <span className="gtext">AI Profit Sprint.</span>
+            <span className="pbm-title-grad">AI Profit Sprint.</span>
           </h2>
-          <p className="sec-sub">
+          <p className="pbm-sub">
             A step-by-step program designed to help creators, coaches and consultants build
             scalable AI-powered businesses with the right strategy, systems, and automation.
           </p>
@@ -816,12 +883,21 @@ function Calculator() {
       <div className="wrap">
         <div className="calc-grid">
           <div className={`calc-left${v ? ' in' : ''}`}>
-            <div className="sec-tag">Revenue Calculator</div>
-            <h2 className="sec-title">See Your<br />Earning Potential</h2>
-            <p className="sec-sub">Calculate what an AI-powered monetization system could generate from your existing audience.</p>
-            <div className="calc-pills">
-              {['Keep 100%', 'AI Runs 24/7', 'Up in Weeks'].map((h, i) => (
-                <div key={i} className="cpill"><span className="cpill-dot" />{h}</div>
+            <span className="pbm-eyebrow">Revenue Calculator</span>
+            <h2 className="pbm-title">See Your<br />Earning Potential</h2>
+            <p className="pbm-sub">This is what your audience is worth as <strong>digital products</strong> — not brand deals or 1:1 calls. Enter your numbers and see what a product-first business could generate.</p>
+
+            <div className="dp-benefits-list">
+              {[
+                { label: 'Total Control', text: 'You own the product. You set the price. You keep 70–90% of the revenue.' },
+                { label: 'Predictability', text: 'Digital products create consistent, recurring revenue. Retainer clients are unpredictable.' },
+                { label: 'Scalability', text: 'Sell 10, 50, or 100 products a month. There is a hard cap on 1:1 clients — not on digital sales.' },
+                { label: 'Works 24/7', text: 'Your digital product sells while you sleep. Client work requires you to show up every time.' },
+              ].map((b, i) => (
+                <div key={i} className="dp-benefit-row">
+                  <span className="dp-benefit-label">{b.label}</span>
+                  <span className="dp-benefit-text">{b.text}</span>
+                </div>
               ))}
             </div>
           </div>
@@ -854,10 +930,75 @@ function Calculator() {
                 </div>
               </div>
 
-              <p className="cnote">Based on 2% conversion — typical for AI-optimized funnels. Many IMG clients achieve 4–8%.</p>
               <a href="#apply" className="btn-primary btn-block">Start Monetizing Today →</a>
+              <p className="calc-disclaimer">⚠️ Figures are projected estimates based on a 2% industry-average conversion rate applied to your audience size. They are not based on IMG client results and do not constitute a promise, guarantee, or representation of expected income. Actual results vary based on niche, offer quality, marketing, and audience engagement.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── DIGITAL PRODUCTS ─────────────────────────────────────────────────────────
+
+const DIGITAL_PRODUCTS = [
+  { emoji: '🎓', title: 'Online Courses',          desc: 'Package your knowledge into a structured program. Students pay once — you earn forever.', featured: true, badge: 'Most Popular', color: '#3b82f6' },
+  { emoji: '👥', title: 'Memberships',             desc: 'Recurring monthly revenue from tiered access. The most predictable income stream you can build.', color: '#7c3aed' },
+  { emoji: '💬', title: 'Paid Communities',        desc: 'Exclusive spaces where your most loyal fans pay for connection, content, and direct access.', color: '#db2777' },
+  { emoji: '📄', title: 'Templates & Downloads',   desc: 'High-value tools and resources your audience buys instantly — zero delivery cost, pure margin.', color: '#10b981' },
+  { emoji: '📞', title: '1:1 Consultations',       desc: 'Premium personal access. High-ticket sessions that leverage your expertise at maximum value.', color: '#f59e0b' },
+]
+
+function DigitalProducts() {
+  const ref = useRef(null)
+  const v = useInView(ref)
+  const [featured, ...rest] = DIGITAL_PRODUCTS
+  return (
+    <section className="dp-section" ref={ref}>
+      <div className="dp-glow" aria-hidden="true" />
+      <div className="wrap">
+        <div className={`sec-hd${v ? ' in' : ''}`}>
+          <span className="pbm-eyebrow">Multiple Revenue Streams</span>
+          <h2 className="pbm-title">What You'll Sell</h2>
+          <p className="pbm-sub">One audience. Five ways to monetise it. Build the products once — let AI systems sell them around the clock.</p>
+        </div>
+
+        <div className="dp-grid">
+
+          {/* Featured card */}
+          <div
+            className={`dp-card dp-card--featured${v ? ' in' : ''}`}
+            style={{ '--dp-color': featured.color }}
+          >
+            {featured.badge && <span className="dp-badge">⭐ {featured.badge}</span>}
+            <div className="dp-emoji-wrap" style={{ background: `${featured.color}22`, border: `1px solid ${featured.color}44` }}>
+              <span className="dp-emoji">{featured.emoji}</span>
+            </div>
+            <h3 className="dp-title">{featured.title}</h3>
+            <p className="dp-desc">{featured.desc}</p>
+            <div className="dp-card-footer">
+              <span className="dp-cta">Build yours →</span>
+            </div>
+          </div>
+
+          {/* 4 smaller cards */}
+          <div className="dp-sub-grid">
+            {rest.map((p, i) => (
+              <div
+                key={i}
+                className={`dp-card${v ? ' in' : ''}`}
+                style={{ '--dp-color': p.color, transitionDelay: `${(i + 1) * 90}ms` }}
+              >
+                <div className="dp-emoji-wrap dp-emoji-wrap--sm" style={{ background: `${p.color}1a`, border: `1px solid ${p.color}33` }}>
+                  <span className="dp-emoji dp-emoji--sm">{p.emoji}</span>
+                </div>
+                <h3 className="dp-title dp-title--sm">{p.title}</h3>
+                <p className="dp-desc dp-desc--sm">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
@@ -896,12 +1037,12 @@ function Testimonials() {
   const r2 = TESTIMONIALS.slice(half)
 
   return (
-    <section className="testimonials" id="results" ref={ref}>
+    <section className="testimonials sec-light" id="results" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">Success Stories</div>
-          <h2 className="sec-title">Creators Are<br /><span className="gtext">Crushing It</span></h2>
-          <p className="sec-sub">Join hundreds of creators, coaches, and consultants building real businesses with AI-powered monetization.</p>
+          <span className="pbm-eyebrow">Success Stories</span>
+          <h2 className="pbm-title">Creators Are<br /><span className="pbm-title-grad">Crushing It</span></h2>
+          <p className="pbm-sub">Join hundreds of creators, coaches, and consultants building real businesses with AI-powered monetization.</p>
         </div>
       </div>
       <div className="tmarquee">
@@ -922,11 +1063,11 @@ function Comparison() {
   const ref = useRef(null)
   const v = useInView(ref)
   return (
-    <section className="comparison sec-light" ref={ref}>
+    <section className="comparison" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">See How We Compare</div>
-          <h2 className="sec-title">Why Top Creators<br />Choose IMG</h2>
+          <span className="pbm-eyebrow">See How We Compare</span>
+          <h2 className="pbm-title">Why Top Creators<br />Choose <span className="pbm-title-grad">IMG</span></h2>
         </div>
         <div className={`ctable${v ? ' in' : ''}`} style={{ transitionDelay: '120ms' }}>
           <div className="cthead">
@@ -958,12 +1099,12 @@ function FAQ() {
   const ref = useRef(null)
   const v = useInView(ref)
   return (
-    <section className="faq" id="faq" ref={ref}>
+    <section className="faq sec-light" id="faq" ref={ref}>
       <div className="wrap">
         <div className={`sec-hd${v ? ' in' : ''}`}>
-          <div className="sec-tag">Got Questions?</div>
-          <h2 className="sec-title">Frequently Asked<br />Questions</h2>
-          <p className="sec-sub">Everything you need to know about working with Influencer Media Group.</p>
+          <span className="pbm-eyebrow">Got Questions?</span>
+          <h2 className="pbm-title">Frequently Asked<br />Questions</h2>
+          <p className="pbm-sub">Everything you need to know about working with Influencer Media Group.</p>
         </div>
         <div className={`faq-list${v ? ' in' : ''}`} style={{ transitionDelay: '120ms' }}>
           {FAQS.map((item, i) => (
@@ -995,16 +1136,16 @@ function FinalCTA() {
   const ref = useRef(null)
   const v = useInView(ref)
   return (
-    <section className="final-cta sec-light" id="apply" ref={ref}>
+    <section className="final-cta" id="apply" ref={ref}>
       <div className="final-glow" aria-hidden="true" />
       <div className="wrap">
         <div className={`final-inner${v ? ' in' : ''}`}>
-          <div className="sec-tag">Join IMG Today</div>
-          <h2 className="sec-title final-title">
+          <span className="pbm-eyebrow">Join IMG Today</span>
+          <h2 className="pbm-title final-title">
             Ready to Get Rewarded<br />
-            <span className="gtext">For What You Know?</span>
+            <span className="pbm-title-grad">For What You Know?</span>
           </h2>
-          <p className="sec-sub">Whether you're just starting or an established creator ready to scale — we're ready to turn your audience into sustainable, automated income.</p>
+          <p className="pbm-sub">Whether you're just starting or an established creator ready to scale — we're ready to turn your audience into sustainable, automated income.</p>
           <div className="final-includes">
             {['Built-in AI marketing & automation', 'Done-for-you digital product setup', 'Dedicated growth strategist', 'Keep 100% of your revenue'].map((item, i) => (
               <div key={i} className="fi-item">
@@ -1121,9 +1262,11 @@ export default function App() {
         <Pillars />
         <Marquee />
         <Problem />
-        <Services />
+        <Opportunity />
         <Sprint />
+        <Services />
         <Calculator />
+        <DigitalProducts />
         <Testimonials />
         <Comparison />
         <FAQ />
