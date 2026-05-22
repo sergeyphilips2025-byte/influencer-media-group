@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
+import ThreeSystems from './components/ThreeSystems'
+import ThinkBeyondContent from './components/ThinkBeyondContent'
+import AudienceCards from './components/AudienceCards'
+import CommunityCircle from './components/CommunityCircle'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -8,32 +12,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
-const PILLARS = [
-  {
-    tag: 'PRODUCT',
-    title: 'Turn your expertise into a digital product people can buy anytime.',
-    boldWord: 'digital product',
-    copy: [],
-    includes: ['Offer positioning & pricing', 'Online courses', 'Memberships', 'Paid communities', 'Templates & digital downloads', 'Coaching programs'],
-    color: '#3b82f6',
-  },
-  {
-    tag: 'PROMOTION',
-    title: 'The AI system that turns followers and traffic into paying customers.',
-    boldWord: 'AI system',
-    copy: [],
-    includes: ['AI sales funnels', 'Lead magnets', 'Email sequences', 'Content systems', 'AI DM automation', 'Audience growth systems'],
-    color: '#7c3aed',
-  },
-  {
-    tag: 'PROFIT',
-    title: 'Automate the backend so your business grows without burning you out.',
-    boldWord: null,
-    copy: [],
-    includes: ['CRM systems', 'Workflow automations', 'Sales pipelines', 'Client onboarding', 'Lead qualification', 'Analytics & optimisation'],
-    color: '#db2777',
-  },
-]
 
 const PX = (id) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop`
 
@@ -42,80 +20,24 @@ const NICHES = [
   { name: 'Fitness & Health',      photo: PX(8692291)  },
   { name: 'Personal Finance',      photo: PX(4968545)  },
   { name: 'Life Coaching',         photo: PX(3958426)  },
-  { name: 'AI & Tech',             photo: PX(34804020) },
+  { name: 'AI & Tech',             photo: PX(3861969)  },
   { name: 'Wellness',              photo: PX(6958258)  },
   { name: 'Music',                 photo: PX(8044226)  },
-  { name: 'Fashion',               photo: PX(32504521) },
+  { name: 'Fashion',               photo: PX(1536619)  },
   { name: 'Food & Nutrition',      photo: PX(7890204)  },
   { name: 'Real Estate',           photo: PX(7578906)  },
   { name: 'Mindset',               photo: PX(4498216)  },
   { name: 'Marketing',             photo: PX(6772076)  },
-  { name: 'Photography',           photo: PX(30884389) },
-  { name: 'Travel',                photo: PX(37562350) },
+  { name: 'Photography',           photo: PX(1983037)  },
+  { name: 'Travel',                photo: PX(1268869)  },
   { name: 'Relationship Coaching', photo: PX(7741572)  },
-  { name: 'Sports',                photo: PX(31124865) },
+  { name: 'Sports',                photo: PX(863988)   },
   { name: 'Online Education',      photo: PX(8055832)  },
   { name: 'Spirituality',          photo: PX(7596959)  },
   { name: 'E-Commerce',            photo: PX(6207729)  },
-  { name: 'Copywriting',           photo: PX(28952356) },
+  { name: 'Copywriting',           photo: PX(3059745)  },
 ]
 
-const SERVICES = [
-  {
-    tag: 'Signature Program',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    ),
-    title: 'AI Profit Sprint',
-    desc: 'Our signature 90-day intensive. Go from audience to $10K–$50K/month with a fully automated AI monetization system.',
-    featured: true,
-  },
-  {
-    tag: '',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    ),
-    title: 'AI DM Automation',
-    desc: 'Turn every comment, follow, and story reply into a sales conversation — automatically, 24/7.',
-    featured: false,
-  },
-  {
-    tag: '',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-    ),
-    title: 'Digital Products',
-    desc: 'Courses, templates, memberships, eBooks — we build, price, and launch your complete digital product suite.',
-    featured: false,
-  },
-  {
-    tag: '',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 1.16h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
-    ),
-    title: '1:1 & Group Coaching',
-    desc: 'High-ticket coaching programs structured to command premium rates and deliver transformational results.',
-    featured: false,
-  },
-  {
-    tag: '',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    ),
-    title: 'Audience Building Funnels',
-    desc: 'AI-powered content strategies and lead magnets that compound your audience growth month over month.',
-    featured: false,
-  },
-  {
-    tag: '',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-    ),
-    title: 'Full AI Automation Stack',
-    desc: 'Email sequences, lead scoring, CRM, and analytics — the complete back-end of a 7-figure knowledge business.',
-    featured: false,
-  },
-]
 
 const TESTIMONIALS = [
   { name: 'Sarah M.', handle: '@sarahcoaches', text: 'The AI Profit Sprint completely transformed my business. I went from $3K/month to $28K in 90 days. The funnel they built converts better than anything I\'ve ever tried.', seed: 'sarah123' },
@@ -159,17 +81,8 @@ const FAQS = [
   },
 ]
 
-const COMPARISON = [
-  { feature: 'AI-powered sales funnels' },
-  { feature: 'Done-for-you digital product creation' },
-  { feature: 'DM automation (24/7)' },
-  { feature: 'Dedicated growth strategist' },
-  { feature: 'You keep 100% of revenue' },
-  { feature: 'Full CRM & automation stack' },
-  { feature: 'Ongoing optimisation' },
-]
 
-// ─── HOOK ─────────────────────────────────────────────────────────────────────
+// ─── HOOKS ────────────────────────────────────────────────────────────────────
 
 function useInView(ref) {
   const [visible, setVisible] = useState(false)
@@ -183,6 +96,23 @@ function useInView(ref) {
     return () => obs.disconnect()
   }, [ref])
   return visible
+}
+
+function useCountUp(target, duration = 1800, active = false) {
+  const [val, setVal] = useState(0)
+  useEffect(() => {
+    if (!active) return
+    let raf, t0
+    const tick = (ts) => {
+      if (!t0) t0 = ts
+      const p = Math.min((ts - t0) / duration, 1)
+      setVal(Math.round((1 - Math.pow(1 - p, 3)) * target))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [active, target, duration])
+  return val
 }
 
 // ─── LOGO ─────────────────────────────────────────────────────────────────────
@@ -418,9 +348,8 @@ function Hero() {
         </h1>
 
         <p className="hero-sub" ref={subRef}>
-          For creators, coaches and consultants who know their audience and
-          expertise is worth more than brand deals and 1:1 calls. We help
-          you build an info business powered by AI that sells while you sleep.
+          <span className="hero-sub-pain">Creators burn out. Coaches cap out. Consultants trade time for money.</span>
+          <span className="hero-sub-promise">There is a smarter model. We build it with you.</span>
         </p>
 
         <div className="hero-btns" ref={btnsRef}>
@@ -450,15 +379,8 @@ function Hero() {
 
 // ─── FOR WHO ──────────────────────────────────────────────────────────────────
 
-const FOR_WHO = [
-  { emoji: '🎙', title: 'Content Creators',      desc: "Build income that doesn't stop the moment you do." },
-  { emoji: '🎓', title: 'Coaches & Consultants', desc: "Stop capping your earnings at your own hours." },
-  { emoji: '🚀', title: 'Rising Creators',        desc: "Get your monetisation in place before you blow up." },
-  { emoji: '👑', title: 'Brand Owners',           desc: "Activate the audience you've already earned." },
-  { emoji: '📚', title: 'Course Creators',        desc: "Turn that dusty course into a machine that sells itself." },
-]
 
-const FW_WORDS = ['Creators', 'Coaches', 'Consultants']
+const FW_WORDS = ['Creators', 'Coaches', 'Consultants', 'Founders']
 
 function ForWho() {
   const ref = useRef(null)
@@ -483,118 +405,22 @@ function ForWho() {
         <div className={`sec-hd${v ? ' in' : ''}`}>
           <span className="pbm-eyebrow">The Fit</span>
           <h2 className="pbm-title">
-            Built for{' '}
+            For{' '}
             <span className={`fw-word pbm-title-grad ${animClass}`}>
               {FW_WORDS[wordIdx]}
             </span>
-            <br />who think bigger
-          </h2>
-        </div>
-        <div className="fw-grid">
-          {FOR_WHO.map((fw, i) => (
-            <div
-              key={i}
-              className={`fw-card${v ? ' in' : ''}`}
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <div className="fw-emoji">{fw.emoji}</div>
-              <h3 className="fw-title">{fw.title}</h3>
-              <p className="fw-desc">{fw.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── PILLARS ──────────────────────────────────────────────────────────────────
-
-function Pillars() {
-  const sectionRef = useRef(null)
-  const headerRef  = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-
-      // Header reveal
-      gsap.from(headerRef.current.children, {
-        y: 40, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 68%' },
-      })
-
-      // Card wrappers rise up together
-      gsap.from('.pbm-card-wrap', {
-        y: 40, opacity: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 62%' },
-      })
-
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <section className="pbm-section sec-light" id="framework" ref={sectionRef}>
-      <div className="wrap">
-
-        {/* Header */}
-        <div className="pbm-header" ref={headerRef}>
-          <span className="pbm-eyebrow">The Model</span>
-          <h2 className="pbm-title">
-            What's an <span className="pbm-title-grad">Info Business</span><br />
-            and Why Should You Care?
+            <br />building info businesses.
           </h2>
           <p className="pbm-sub">
-            An info business turns your audience and knowledge into income that
-            doesn't need your time. Packaged once, sold automatically, running
-            in the background while you get on with your life.
+            Turn your audience, expertise, or personal brand into scalable digital products, automated systems, and recurring revenue.
           </p>
         </div>
-
-        <div className="pbm-track">
-          <div className="pbm-phase-label">The 3-Phase System</div>
-          <div className="pbm-grid">
-            {PILLARS.map((p, i) => (
-              /* Shine-border wrapper — 2px animated gradient border */
-              <div key={i} className="pbm-card-wrap" style={{ '--shine-color': p.color, '--shine-delay': `${i * 1.1}s` }}>
-                <div className="pbm-card" style={{ '--card-color': p.color, '--delay': i * 0.9 }}>
-                  <div className="pbm-card-scan" aria-hidden="true" />
-                  <span className="pbm-card-num">0{i + 1}</span>
-                  <span className="pbm-card-tag" style={{ color: p.color, background: `${p.color}14`, borderColor: `${p.color}44` }}>
-                    {p.tag}
-                  </span>
-                  <h3 className="pbm-card-title">
-                    {p.boldWord
-                      ? p.title.split(p.boldWord).flatMap((part, j, arr) =>
-                          j < arr.length - 1
-                            ? [part, <strong key={j} style={{ color: p.color }}>{p.boldWord}</strong>]
-                            : [part]
-                        )
-                      : p.title}
-                  </h3>
-                  <div className="pbm-includes">
-                    <p className="pbm-inc-label">Includes</p>
-                    <ul className="pbm-inc-list">
-                      {p.includes.map((item, j) => (
-                        <li key={j} className="pbm-inc-item">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="2.5" style={{ flexShrink: 0 }}>
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
+        <AudienceCards />
       </div>
     </section>
   )
 }
+
 
 // ─── STATS ────────────────────────────────────────────────────────────────────
 
@@ -616,11 +442,28 @@ function NicheCard({ n }) {
 }
 
 function Marquee() {
+  const sectionRef = useRef(null)
+  const headerRef  = useRef(null)
   const row1 = NICHES.slice(0, 10)
   const row2 = NICHES.slice(10)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(headerRef.current.children, {
+        y: 44, opacity: 0, duration: 0.9, stagger: 0.13, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 72%' },
+      })
+      gsap.from('.marquee-wrap', {
+        y: 36, opacity: 0, duration: 0.85, stagger: 0.18, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 62%' },
+      })
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="marquee-section">
-      <div className="pbm-header marquee-header">
+    <section className="marquee-section" ref={sectionRef}>
+      <div className="pbm-header marquee-header" ref={headerRef}>
         <span className="pbm-eyebrow">The Niche</span>
         <h2 className="pbm-title">
           One <span className="pbm-title-grad">Growth System.</span>
@@ -642,62 +485,6 @@ function Marquee() {
 
 // ─── SERVICES ─────────────────────────────────────────────────────────────────
 
-// ─── THE PROBLEM ──────────────────────────────────────────────────────────────
-
-const PAIN_POINTS = [
-  { text: 'You post every day. The views come in. The bank account doesn\'t move.' },
-  { text: 'You\'re fully booked. And somehow still broke.' },
-  { text: 'Your income lives and dies by an algorithm you don\'t control.' },
-  { text: 'Brand deals dry up the second your numbers dip.' },
-  { text: 'You start from zero. Every. Single. Month.' },
-]
-
-function Problem() {
-  const ref = useRef(null)
-  const v = useInView(ref)
-  return (
-    <section className="problem" ref={ref}>
-      <div className="wrap">
-
-        <div className="problem-inner">
-
-          {/* Left col — title block */}
-          <div className="problem-left">
-            <span className="pbm-eyebrow">The Trap</span>
-            <h2 className="problem-heading">The System Is Designed to Keep You Broke.</h2>
-            <div className="problem-rule" aria-hidden="true" />
-          </div>
-
-          {/* Right col — copy + pain points */}
-          <div className={`problem-right${v ? ' in' : ''}`}>
-            <p className="problem-intro">
-              The platforms need your content. The brands need your trust.
-              The algorithms keep you posting, not profiting.{' '}
-              <span className="gtext">You are the product.</span>
-            </p>
-            <div className="problem-list">
-              {PAIN_POINTS.map((p, i) => (
-                <div key={i} className="problem-item" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <span className="problem-item-diamond" aria-hidden="true">❖</span>
-                  <p className="problem-card-text">{p.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom statement bar */}
-        <div className={`problem-banner${v ? ' in' : ''}`}>
-          <span className="problem-banner-plain">You don't need more content.</span>
-          <span className="problem-banner-divider" aria-hidden="true" />
-          <span className="problem-banner-grad gtext">You need an info business with AI running it.</span>
-        </div>
-
-      </div>
-    </section>
-  )
-}
 
 // ─── THE OPPORTUNITY ──────────────────────────────────────────────────────────
 
@@ -745,39 +532,6 @@ function Opportunity() {
   )
 }
 
-// ─── SERVICES ─────────────────────────────────────────────────────────────────
-
-function Services() {
-  const ref = useRef(null)
-  const v = useInView(ref)
-  return (
-    <section className="services" id="services" ref={ref}>
-      <div className="wrap">
-        <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">What We Do</span>
-          <h2 className="pbm-title">Our Full<br /><span className="pbm-title-grad">Service Suite</span></h2>
-          <p className="pbm-sub">Every tool, system, and strategy you need — built and run for you, so you can focus on what you do best.</p>
-        </div>
-        <div className="services-grid">
-          {SERVICES.map((s, i) => (
-            <div
-              key={i}
-              className={`scard${s.featured ? ' scard--feat' : ''}${v ? ' in' : ''}`}
-              style={{ transitionDelay: `${i * 70}ms` }}
-            >
-              {s.tag && <div className="scard-tag">{s.tag}</div>}
-              <h3 className="scard-title">{s.title}</h3>
-              <p className="scard-desc">{s.desc}</p>
-              <div className="scard-arrow">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── AI PROFIT SPRINT ─────────────────────────────────────────────────────────
 
@@ -959,70 +713,6 @@ function Calculator() {
   )
 }
 
-// ─── DIGITAL PRODUCTS ─────────────────────────────────────────────────────────
-
-const DIGITAL_PRODUCTS = [
-  { emoji: '🎓', title: 'Online Courses',          desc: 'Students pay once. You earn forever.', featured: true, badge: 'Most Popular', color: '#3b82f6' },
-  { emoji: '👥', title: 'Memberships',             desc: 'The most predictable recurring income stream you can build.', color: '#7c3aed' },
-  { emoji: '💬', title: 'Paid Communities',        desc: 'Your most loyal audience pays for connection and direct access.', color: '#db2777' },
-  { emoji: '📄', title: 'Templates & Downloads',   desc: 'Zero delivery cost. Pure margin.', color: '#10b981' },
-  { emoji: '📞', title: '1:1 Consultations',       desc: 'Premium high-ticket sessions at your full rate.', color: '#f59e0b' },
-]
-
-function DigitalProducts() {
-  const ref = useRef(null)
-  const v = useInView(ref)
-  const [featured, ...rest] = DIGITAL_PRODUCTS
-  return (
-    <section className="dp-section" ref={ref}>
-      <div className="dp-glow" aria-hidden="true" />
-      <div className="wrap">
-        <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">The Product</span>
-          <h2 className="pbm-title">One Audience. Five Income Streams.<br /><span className="pbm-title-grad">Zero Extra Hours.</span></h2>
-          <p className="pbm-sub">Build the digital products once. The AI system sells them every hour of every day.</p>
-        </div>
-
-        <div className="dp-grid">
-
-          {/* Featured card */}
-          <div
-            className={`dp-card dp-card--featured${v ? ' in' : ''}`}
-            style={{ '--dp-color': featured.color }}
-          >
-            {featured.badge && <span className="dp-badge">⭐ {featured.badge}</span>}
-            <div className="dp-emoji-wrap" style={{ background: `${featured.color}22`, border: `1px solid ${featured.color}44` }}>
-              <span className="dp-emoji">{featured.emoji}</span>
-            </div>
-            <h3 className="dp-title">{featured.title}</h3>
-            <p className="dp-desc">{featured.desc}</p>
-            <div className="dp-card-footer">
-              <span className="dp-cta">Build yours →</span>
-            </div>
-          </div>
-
-          {/* 4 smaller cards */}
-          <div className="dp-sub-grid">
-            {rest.map((p, i) => (
-              <div
-                key={i}
-                className={`dp-card${v ? ' in' : ''}`}
-                style={{ '--dp-color': p.color, transitionDelay: `${(i + 1) * 90}ms` }}
-              >
-                <div className="dp-emoji-wrap dp-emoji-wrap--sm" style={{ background: `${p.color}1a`, border: `1px solid ${p.color}33` }}>
-                  <span className="dp-emoji dp-emoji--sm">{p.emoji}</span>
-                </div>
-                <h3 className="dp-title dp-title--sm">{p.title}</h3>
-                <p className="dp-desc dp-desc--sm">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── TESTIMONIALS ─────────────────────────────────────────────────────────────
 
@@ -1076,41 +766,6 @@ function Testimonials() {
   )
 }
 
-// ─── COMPARISON ───────────────────────────────────────────────────────────────
-
-function Comparison() {
-  const ref = useRef(null)
-  const v = useInView(ref)
-  return (
-    <section className="comparison" ref={ref}>
-      <div className="wrap">
-        <div className={`sec-hd${v ? ' in' : ''}`}>
-          <span className="pbm-eyebrow">Why Us</span>
-          <h2 className="pbm-title">One Roof. Every System.<br /><span className="pbm-title-grad">Nothing Outsourced.</span></h2>
-          <p className="pbm-sub">Most agencies do ads. Or content. Or tech. IMG builds the entire info business — product, funnel, automation and strategy — under one roof.</p>
-        </div>
-        <div className={`ctable${v ? ' in' : ''}`} style={{ transitionDelay: '120ms' }}>
-          <div className="cthead">
-            <div className="ctfeat">Feature</div>
-            <div className="ctus">IMG</div>
-            <div className="ctthem">Everyone Else</div>
-          </div>
-          {COMPARISON.map((row, i) => (
-            <div key={i} className="ctrow">
-              <div className="ctfeat">{row.feature}</div>
-              <div className="ctcell ctcell--yes">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <div className="ctcell ctcell--no">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
 
@@ -1282,17 +937,15 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Pillars />
+        <ThinkBeyondContent />
+        <ThreeSystems />
         <Marquee />
         <ForWho />
-        <Problem />
         <Opportunity />
         <Sprint />
-        <Services />
         <Calculator />
-        <DigitalProducts />
         <Testimonials />
-        <Comparison />
+        <CommunityCircle />
         <FAQ />
         <FinalCTA />
         <Newsletter />
